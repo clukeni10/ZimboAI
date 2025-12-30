@@ -1,35 +1,33 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import "./App.css";
+import Budgets from "./app/ui/system/budget";
+import Dashboard from "./app/ui/system/dashboard";
+import Profile from "./app/ui/system/profile";
+import Transactions from "./app/ui/system/transactions";
+import Sidebar from "./app/components/sidebar";
+import { Box } from "@chakra-ui/react";
+import FAQ from "./app/ui/system/faq";
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <BrowserRouter>
+        <Box display="flex">
+          {/* Agora o Sidebar está DENTRO do BrowserRouter, então o useLocation funciona! */}
+          <Sidebar />
+          <Box flex="1">
+            <Routes>
+              <Route path="/" element={<Dashboard />} />
+              <Route path="/profile" element={<Profile />} />
+              <Route path="/budgets" element={<Budgets />} />
+              <Route path="/transactions" element={<Transactions />} />
+              <Route path="/faq" element={<FAQ />} />
+            </Routes>
+          </Box>
+        </Box>
+      </BrowserRouter>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
